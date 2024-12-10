@@ -420,34 +420,16 @@ class DragDropExample extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.all(10), // Adds padding around the body
           child: MultiDragAndDrop(
-            uiDecorated: true,
+            uiDecorated: false,
             disableTitle: false, // Enables the title for each title
             titleTextStyle: const TextStyle(
-              color: Colors.white,
-              fontSize: 16,
+              color: Colors.black,
+              fontSize: 18,
               fontWeight: FontWeight.bold,
             ), // Customizes the title text style
            // Enables UI decorations for the drag-and-drop lists
             verticalSpacing: 5, // Spacing between lists vertically
-            paddingForDecoratedUi:
-                15, 
-                // Padding added around each list only when uIDecorated is true
-            titleBoxdecorationForDecoratedUi: const BoxDecoration(
-              color: Color(0xFF004D40),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(15),
-                topRight: Radius.circular(15),
-              ),
-           ),
-            // UI decoration style for box containing thelist titles
-            decorationForDecoratedUi: BoxDecoration(
-              color:
-                  Colors.teal[50], // Background color for the drag-and-drop UI
-              borderRadius: const BorderRadius.all(
-                  Radius.circular(20)), // Rounds the corners of the boxes
-              border: Border.all(
-                  color: Colors.teal, width: 1.5), // Adds a teal border
-            ),
+         
             titleAlignment: TitleAlignment.center, // Centers the titles
             items: [
               ListData(

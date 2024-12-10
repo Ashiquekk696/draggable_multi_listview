@@ -81,16 +81,24 @@ class MultiDragAndDrop extends StatefulWidget {
     dynamic movedItem,
   ) onListsChanged;
 
-  /// Constructor for creating the MultiDragAndDrop widget.
+  /// /// **Assertions:**
+  /// - Ensures `horizontalSpacingRatio` is within the range 0.01 and 0.09.
+  /// - Ensures that the initial `items` list is not empty.
+  /// - If `uiDecorated` is enabled, it checks that `paddingForDecoratedUi`, `titleTextStyle`,
+  ///   and `decorationForDecoratedUi` are provided.
+  /// /// - If `uiDecorated` is disabled, it checks that `paddingForDecoratedUi` 
+  ///   and `decorationForDecoratedUi` are not provided.
+  ///
+  /// **Returns:**
   const MultiDragAndDrop({
     Key? key,
     required this.items,
     this.itemHeight,
     required this.itemBuilder,
-    required this.disableTitle,
+    this.disableTitle = false,
     required this.onListsChanged,
     this.titleTextStyle,
-    this.uiDecorated = false,
+    required  this.uiDecorated,
     this.paddingForDecoratedUi,
     this.titleBoxdecorationForDecoratedUi,
     this.decorationForDecoratedUi,
@@ -99,13 +107,19 @@ class MultiDragAndDrop extends StatefulWidget {
     this.horizontalSpacingRatio = 0.08,
   })  : assert(horizontalSpacingRatio >= 0.01 && horizontalSpacingRatio < 0.09,
             "Horizontal spacing ratio must be between 0.01 and 0.09"),
-        assert(items.length > 0, "Initial lists must not be empty"),
+        assert(items.length > 0, "items must not be empty"),
+        assert(
+            uiDecorated == false
+                ? (paddingForDecoratedUi == null &&   titleBoxdecorationForDecoratedUi ==null &&
+                    decorationForDecoratedUi == null)
+                : true,
+            "paddingForDecoratedUi, titleBoxdecorationForDecoratedUi and decorationForDecoratedUi must  be null when uiDecorated is false"),
         assert(
             uiDecorated == false ||
                 (paddingForDecoratedUi != null &&
-                    titleTextStyle != null &&
+                   titleBoxdecorationForDecoratedUi !=null &&
                     decorationForDecoratedUi != null),
-            "Padding, text style, and decoration must not be null when UI is decorated"),
+            "paddingForDecoratedUi, titleBoxdecorationForDecoratedUi and decorationForDecoratedUi must not be null when UI is decorated"),
         super(key: key);
 
   @override
@@ -176,36 +190,57 @@ class _MultiDragAndDropState extends State<MultiDragAndDrop>
     );
   }
 
-  /// Builds a single list with drag-and-drop functionality.
+  /// Builds a draggable and droppable list with dynamic drag-and-drop functionality.
+  ///
+  /// This method generates the UI for a given index's `DragTarget` list data. It allows
+  /// the user to drag items from one list and drop them into another while handling the
+  /// drag-and-drop visual feedback and state updates.
+  ///
+  /// **Parameters:**
+  /// - [index]: The index of the current list being rendered.
+  /// - [listData]: The data representing the current list, which includes `title` and `items`.
+  ///
+  /// **Returns:**
+  /// A widget representing the draggable and droppable list UI.
   Widget buildList(int index, ListData listData) {
     return Flexible(
-      fit: FlexFit.tight,
+      fit: FlexFit
+          .tight, // Ensures the widget expands proportionally in a flexible layout.
       child: DragTarget<Map<String, dynamic>>(
+        /// Triggered when a dragged item is about to enter this drag target area.
+        /// It prevents items from being dragged onto the same index list.
         onWillAcceptWithDetails: (data) =>
             data.data['sourceIndex'] != null &&
             data.data['sourceIndex'] != index,
+
+        /// Triggered when a valid drag item is dropped on this area.
         onAcceptWithDetails: (data) {
-          final draggedItem = data.data['item'];
-          final sourceIndex = data.data['sourceIndex'];
-          onItemDropped(draggedItem, sourceIndex, index);
+          final draggedItem =
+              data.data['item']; // Extracts the dragged item data.
+          final sourceIndex = data.data[
+              'sourceIndex']; // Retrieves the source index of the dragged item.
+          onItemDropped(draggedItem, sourceIndex,
+              index); // Handles the logic for when an item is dropped.
         },
+
+        /// Main builder logic for rendering the drag target container.
         builder: (context, candidateData, rejectedData) {
           return Container(
             margin: widget.uiDecorated
                 ? EdgeInsets.only(
                     right: index != widget.items.length - 1
                         ? widget.paddingForDecoratedUi!
-                        : 0)
+                        : 0) // Adds margin only between decorated lists if enabled.
                 : const EdgeInsets.all(0),
             decoration: widget.uiDecorated
                 ? widget.decorationForDecoratedUi
-                : const BoxDecoration(),
+                : const BoxDecoration(), // Applies custom decoration if `uiDecorated` is true.
             child:
                 LayoutBuilder(builder: (context, BoxConstraints constraints) {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  /// Title box with optional decoration and alignment.
+                  /// Renders the draggable list's title section with optional alignment and decoration.
                   Container(
                     width: constraints.maxWidth,
                     decoration: widget.titleBoxdecorationForDecoratedUi,
@@ -216,7 +251,8 @@ class _MultiDragAndDropState extends State<MultiDragAndDrop>
                               ? Alignment.centerRight
                               : Alignment.center,
                       child: Visibility(
-                        visible: !widget.disableTitle,
+                        visible: !widget
+                            .disableTitle, // Ensures title visibility is toggleable.
                         child: Text(
                           listData.title,
                           style: widget.titleTextStyle ??
@@ -229,10 +265,11 @@ class _MultiDragAndDropState extends State<MultiDragAndDrop>
                     ),
                   ),
 
-                  /// List of items with spacing and drag-and-drop functionality.
+                  /// Dynamically generates a scrollable list of draggable items.
                   Expanded(
                     child: ListView.builder(
-                      itemCount: listData.items.length,
+                      itemCount: listData.items
+                          .length, // Dynamically generates the number of list items.
                       itemBuilder: (context, itemIndex) {
                         final item = listData.items[itemIndex];
                         return Padding(
@@ -242,9 +279,13 @@ class _MultiDragAndDropState extends State<MultiDragAndDrop>
                                 widget.horizontalSpacingRatio.clamp(0.01, 0.08),
                           ),
                           child: SizedBox(
-                            height: widget.itemHeight,
+                            height: widget
+                                .itemHeight, // Dynamically sets the height of each item.
                             child: Draggable<Map<String, dynamic>>(
-                              data: {'item': item, 'sourceIndex': index},
+                              data: {
+                                'item': item,
+                                'sourceIndex': index
+                              }, // Passes item and source index on drag.
                               feedback: Opacity(
                                 opacity: 0.5,
                                 child: Material(
@@ -252,17 +293,20 @@ class _MultiDragAndDropState extends State<MultiDragAndDrop>
                                   child: SizedBox(
                                       width: constraints.maxWidth - 10,
                                       height: widget.itemHeight,
-                                      child: buildAnimatedItem(item)),
+                                      child: buildAnimatedItem(
+                                          item)), // Shows item visually when dragged.
                                 ),
                               ),
-                              onDragStarted: (){
-                                
+                              onDragStarted: () {
+                                // Optionally define actions to perform when drag starts.
                               },
                               childWhenDragging: Opacity(
                                 opacity: 0.5,
-                                child: buildAnimatedItem(item),
+                                child: buildAnimatedItem(
+                                    item), // Reduces visibility of the dragged item.
                               ),
-                              child: buildAnimatedItem(item),
+                              child: buildAnimatedItem(
+                                  item), // Displays item in normal state when not dragging.
                             ),
                           ),
                         );
@@ -295,7 +339,8 @@ class _MultiDragAndDropState extends State<MultiDragAndDrop>
 
 void main() {
   runApp(DragDropExample());
-} 
+}
+
 /// A StatelessWidget representing the entire example UI for a
 /// Drag-and-Drop task manager with three categories: To-Do, In Progress, Completed.
 class DragDropExample extends StatelessWidget {
@@ -357,7 +402,8 @@ class DragDropExample extends StatelessWidget {
       debugShowCheckedModeBanner: false, // Disables the debug banner in the app
       title: 'Drag and Drop Example', // Sets the app's title
       theme: ThemeData.light().copyWith(
-        scaffoldBackgroundColor: const Color(0xFFF3F8FB), // Background color of the entire app
+        scaffoldBackgroundColor:
+            const Color(0xFFF3F8FB), // Background color of the entire app
         appBarTheme: const AppBarTheme(
           backgroundColor: Color(0xFF004D40), // AppBar's background color
           titleTextStyle: TextStyle(
@@ -374,38 +420,57 @@ class DragDropExample extends StatelessWidget {
         body: Padding(
           padding: const EdgeInsets.all(10), // Adds padding around the body
           child: MultiDragAndDrop(
-            disableTitle: false, // Enables the title for drag-and-drop functionality
+            uiDecorated: true,
+            disableTitle: false, // Enables the title for each title
             titleTextStyle: const TextStyle(
               color: Colors.white,
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ), // Customizes the title text style
-            uiDecorated: true, // Enables UI decorations for the drag-and-drop lists
+           // Enables UI decorations for the drag-and-drop lists
             verticalSpacing: 5, // Spacing between lists vertically
-            paddingForDecoratedUi: 15, // Padding added around the UI components
+            paddingForDecoratedUi:
+                15, 
+                // Padding added around each list only when uIDecorated is true
             titleBoxdecorationForDecoratedUi: const BoxDecoration(
               color: Color(0xFF004D40),
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(15),
                 topRight: Radius.circular(15),
               ),
-            ), // UI decoration style for list titles
+           ),
+            // UI decoration style for box containing thelist titles
             decorationForDecoratedUi: BoxDecoration(
-              color: Colors.teal[50], // Background color for the drag-and-drop UI
-              borderRadius: const BorderRadius.all(Radius.circular(20)), // Rounds the corners of the boxes
-              border: Border.all(color: Colors.teal, width: 1.5), // Adds a teal border
+              color:
+                  Colors.teal[50], // Background color for the drag-and-drop UI
+              borderRadius: const BorderRadius.all(
+                  Radius.circular(20)), // Rounds the corners of the boxes
+              border: Border.all(
+                  color: Colors.teal, width: 1.5), // Adds a teal border
             ),
             titleAlignment: TitleAlignment.center, // Centers the titles
             items: [
-              ListData(title: 'To-Do', items: toDo), // "To-Do" list with its respective tasks
-              ListData(title: 'In Progress', items: inProgress), // "In Progress" list with its respective tasks
-              ListData(title: 'Completed', items: completed), // "Completed" list with its respective tasks
+              ListData(
+                  title: 'To-Do',
+                  items: toDo), // "To-Do" list with its respective tasks
+              ListData(
+                  title: 'In Progress',
+                  items:
+                      inProgress), // "In Progress" list with its respective tasks
+              ListData(
+                  title: 'Completed',
+                  items:
+                      completed), // "Completed" list with its respective tasks
             ],
-            horizontalSpacingRatio: 0.02, // Spacing ratio between items horizontally
+
+            horizontalSpacingRatio: 0.02,
+
+            /// [horizontalSpacingRatio] is the spacing ratio between items horizontally.Use this for handling the width of the items.
             itemBuilder: (item) => Container(
               decoration: BoxDecoration(
                 color: Colors.white, // Sets item background color
-                borderRadius: BorderRadius.circular(12), // Adds rounded corners to items
+                borderRadius:
+                    BorderRadius.circular(12), // Adds rounded corners to items
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.4),
@@ -415,21 +480,24 @@ class DragDropExample extends StatelessWidget {
                 ],
               ),
               child: Padding(
-                padding: const EdgeInsets.all(10.0), // Padding inside the draggable task items
+                padding: const EdgeInsets.all(
+                    10.0), // Padding inside the draggable task items
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      item['title'].toString(), // Displays the title of the item
+                      item['title']
+                          .toString(), // Displays the title of the item
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFF004D40),
                       ),
                     ),
-                    const SizedBox(height: 8), 
+                    const SizedBox(height: 8),
                     Text(
-                      item['description'].toString(), // Displays the description of the item
+                      item['description']
+                          .toString(), // Displays the description of the item
                       style: const TextStyle(
                         fontSize: 14,
                         color: Colors.black87,
@@ -448,14 +516,8 @@ class DragDropExample extends StatelessWidget {
                 ),
               ),
             ),
-            onListsChanged: (updatedLists, sourceIndex, targetIndex, movedItem) {
-              // Handle drag-and-drop events
-              print('Lists updated');
-              print('Updated lists: $updatedLists');
-              print('Source Index: $sourceIndex');
-              print('Target Index: $targetIndex');
-              print('Moved item: $movedItem from $sourceIndex to $targetIndex');
-            },
+            onListsChanged:
+                (updatedLists, sourceIndex, targetIndex, movedItem) {},
           ),
         ),
       ),

@@ -1,44 +1,6 @@
-# draggable_multi_listview
 
 
-**draggable_multi_listview** is a highly customizable Flutter package that allows developers to create multiple draggable and droppable lists with dynamic UI customization. The package supports features like drag-and-drop functionality, animated transitions, and UI decorations for a polished look.
-
----
-
-## Features
-
-- Create multiple lists with titles and items.
-- Drag and drop items between lists with smooth animations.
-- Customize spacing, title alignment, and UI decorations.
-- Callback support for handling updates to lists after item movements.
-- Flexible and responsive layout design.
-
----
-
-## Installation
-
-Add the following to your `pubspec.yaml`:
-
-```yaml
-dependencies:
-  draggable_multi_listview: 1.0.0
-```
-Then, run:
-`
-flutter pub get`  
-
-Import the package into your Dart file:
-
-` 'package:draggable_multi_listview/draggable_multi_listview.dart';
-`
-
-
-## Usage
-### Example Code
-
-Here’s an example of how to use the draggable_multi_listview widget in your app:
-
-```import 'package:draggable_multi_listview/draggable_multi_listview.dart';
+import 'package:draggable_multi_listview/draggable_multi_listview.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -209,23 +171,4 @@ class DragDropExample extends StatelessWidget {
       ),
     );
   }
-}```
-
-
-
-Parameters
-draggable_multi_listview
-Parameter	Type	Default	Description
-items	List<ListData>	Required	A list of initial lists with titles and items.
-itemBuilder	Widget Function(dynamic item)	Required	Builder function for creating widgets for each item.
-horizontalSpacingRatio	double	0.08	Horizontal spacing ratio between items (range: 0.01 to 0.09).
-verticalSpacing	double	10.0	Vertical spacing between list items.
-disableTitle	bool	false	Whether to hide the list titles.
-paddingForDecoratedUi	double?	null	Padding for custom UI decorations when enabled.
-decorationForDecoratedUi	BoxDecoration?	null	Decoration for the list container when custom UI decorations are enabled.
-titleBoxdecorationForDecoratedUi	BoxDecoration?	null	Decoration for the title box when custom UI decorations are enabled.
-uiDecorated	bool	false	Enables custom UI decorations.
-titleTextStyle	TextStyle?	null	Custom text style for list titles.
-titleAlignment	TitleAlignment	TitleAlignment.left	Alignment of the list titles (left, right, or center).
-itemHeight	double?	null	Fixed height for each list item.
-onListsChanged	Function(List<ListData>, int, int, dynamic)	Required	Callback triggered when items are moved between lists, providing updated data.
+}

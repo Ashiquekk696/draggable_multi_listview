@@ -42,13 +42,13 @@ Here’s an example of how to use the draggable_multi_listview widget in your ap
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(DragDropExample());
+  runApp(DraggableMultiListViewExample());
 }
 
 /// A StatelessWidget representing the entire example UI for a
-/// Drag-and-Drop task manager with three categories: To-Do, In Progress, Completed.
-class DragDropExample extends StatelessWidget {
-  DragDropExample({super.key});
+/// draggable_multi_listview task manager with three categories: To-Do, In Progress, Completed.
+class DraggableMultiListViewExample extends StatelessWidget {
+  DraggableMultiListViewExample({super.key});
 
   /// List of tasks in the "In Progress" state.
   /// Each task contains a title, description, and due date.
@@ -213,20 +213,20 @@ class DragDropExample extends StatelessWidget {
 ```
 
 
+### Parameters for `draggable_multi_listview`
 
-Parameters
-draggable_multi_listview
-Parameter	Type	Default	Description
-items	List<ListData>	Required	A list of initial lists with titles and items.
-itemBuilder	Widget Function(dynamic item)	Required	Builder function for creating widgets for each item.
-horizontalSpacingRatio	double	0.08	Horizontal spacing ratio between items (range: 0.01 to 0.09).
-verticalSpacing	double	10.0	Vertical spacing between list items.
-disableTitle	bool	false	Whether to hide the list titles.
-paddingForDecoratedUi	double?	null	Padding for custom UI decorations when enabled.
-decorationForDecoratedUi	BoxDecoration?	null	Decoration for the list container when custom UI decorations are enabled.
-titleBoxdecorationForDecoratedUi	BoxDecoration?	null	Decoration for the title box when custom UI decorations are enabled.
-uiDecorated	bool	false	Enables custom UI decorations.
-titleTextStyle	TextStyle?	null	Custom text style for list titles.
-titleAlignment	TitleAlignment	TitleAlignment.left	Alignment of the list titles (left, right, or center).
-itemHeight	double?	null	Fixed height for each list item.
-onListsChanged	Function(List<ListData>, int, int, dynamic)	Required	Callback triggered when items are moved between lists, providing updated data.
+| **Parameter**                     | **Type**                                           | **Default**                   | **Description**                                                                                                                                 |
+|-----------------------------------|---------------------------------------------------|-------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| `items`                           | `List<ListData>`                                  | **Required**                  | A list of initial lists with titles and items.                                                                                                 |
+| `itemBuilder`                     | `Widget Function(dynamic item)`                  | **Required**                  | Builder function for creating widgets for each item.                                                                                           |
+| `horizontalSpacingRatio`          | `double`                                          | `0.08`                        | Horizontal spacing ratio between items (range: 0.01 to 0.09).                                                                                  |
+| `verticalSpacing`                 | `double`                                          | `10.0`                        | Vertical spacing between list items.                                                                                                           |
+| `disableTitle`                    | `bool`                                            | `false`                       | Whether to hide the list titles.                                                                                                               |
+| `paddingForDecoratedUi`           | `double?`                                         | `null`                        | Padding for custom UI decorations when enabled.                                                                                                |
+| `decorationForDecoratedUi`        | `BoxDecoration?`                                  | `null`                        | Decoration for the list container when custom UI decorations are enabled.                                                                      |
+| `titleBoxdecorationForDecoratedUi`| `BoxDecoration?`                                  | `null`                        | Decoration for the title box when custom UI decorations are enabled.                                                                           |
+| `uiDecorated`                     | `bool`                                            | `false`                       | Enables custom UI decorations.                                                                                                                 |
+| `titleTextStyle`                  | `TextStyle?`                                      | `null`                        | Custom text style for list titles.                                                                                                             |
+| `titleAlignment`                  | `TitleAlignment`                                  | `TitleAlignment.left`         | Alignment of the list titles (left, right, or center).                                                                                         |
+| `itemHeight`                      | `double?`                                         | `null`                        | Fixed height for each list item.                                                                                                               |
+| `onListsChanged`                  | `Function(List<ListData>, int, int, dynamic)`     | **Required**                  | Callback triggered when items are moved between lists, providing updated data.                                                                 |

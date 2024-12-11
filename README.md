@@ -222,5 +222,17 @@ class DraggableMultiListViewExample extends StatelessWidget {
 } 
 ```
 
+## Usage Guidelines
+### Assertions:
+
+* horizontalSpacingRatio must be within the range 0.01 and 0.09.
+
+* The initial items list must not be empty.
+
+* If uiDecorated is enabled:
+  paddingForDecoratedUi, titleTextStyle, and decorationForDecoratedUi must be provided.
+
+* If uiDecorated is disabled:
+paddingForDecoratedUi and decorationForDecoratedUi must not be provided.
 
  

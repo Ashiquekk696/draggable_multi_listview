@@ -91,7 +91,7 @@ class MultiDragAndDrop extends StatefulWidget {
   ///
   /// **Returns:**
   const MultiDragAndDrop({
-    Key? key,
+    super.key,
     required this.items,
     this.itemHeight,
     required this.itemBuilder,
@@ -119,8 +119,7 @@ class MultiDragAndDrop extends StatefulWidget {
                 (paddingForDecoratedUi != null &&
                    titleBoxdecorationForDecoratedUi !=null &&
                     decorationForDecoratedUi != null),
-            "paddingForDecoratedUi, titleBoxdecorationForDecoratedUi and decorationForDecoratedUi must not be null when UI is decorated"),
-        super(key: key);
+            "paddingForDecoratedUi, titleBoxdecorationForDecoratedUi and decorationForDecoratedUi must not be null when UI is decorated");
 
   @override
   State<MultiDragAndDrop> createState() => _MultiDragAndDropState();

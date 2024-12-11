@@ -1,5 +1,5 @@
 name: draggable_multi_listview
-description: "A new Flutter project."
+description: "A Flutter package for draggable, multi-item ListView with reorder support."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -52,11 +52,17 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
+  uses-material-design: true
+topics:
+  - Flutter
+  - Drag-and-Drop
+  - ListView
+  - Reorderable
+  - dragabble-listview
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
-  uses-material-design: true
+  
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -31,7 +31,7 @@ Add the following to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  draggable_multi_listview: 1.0.2
+  draggable_multi_listview: 1.0.3
 ```
 Then, run:
 `

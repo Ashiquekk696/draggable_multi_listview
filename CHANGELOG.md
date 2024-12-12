@@ -1,6 +1,6 @@
-## 1.0.2
+## 1.0.3
 2024-12-12
 
-Second deployment - README Demo Not decorated GIF removed as to avoid lagging
+Reduces sizes of demo GIFs
 
  

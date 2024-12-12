@@ -56,7 +56,7 @@ flutter:
   uses-material-design: true
 topics:
   - flutter
-  - super_drag_and_drop 
+  - super-drag-and-drop 
   - listview
   - drag-multiple-lists
   - dragabble-listview

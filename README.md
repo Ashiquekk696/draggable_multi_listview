@@ -20,18 +20,17 @@
 Here is a quick demo of the App   
 
 ### Ui decorated
-<img src="https://github.com/Ashiquekk696/draggable_multi_listview/blob/master/assets/screenshots/decorated_real.gif" alt="Demo GIF" width="500" height="300"> 
-
-
+<img src="assets/screenshots/decorated_real.gif" alt="Demo GIF" width="500" height="300"> 
+   
 ### Ui Not decorated
-<img src="https://github.com/Ashiquekk696/draggable_multi_listview/blob/master/assets/screenshots/not_decorated_real.gif" alt="Demo GIF" width="500" height="300">    
+<img src="assets/screenshots/not_decorated_real.gif" alt="Demo GIF" width="500" height="300"> 
 ## Installation
 
 Add the following to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  draggable_multi_listview: 1.0.3
+  draggable_multi_listview: 1.0.4
 ```
 Then, run:
 `

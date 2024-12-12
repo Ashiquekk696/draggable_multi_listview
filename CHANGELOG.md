@@ -1,6 +1,6 @@
-## 1.0.3
+## 1.0.4
 2024-12-12
 
-Reduces sizes of demo GIFs
+Reconfigurations for GIFs in README.md
 
- 
+  

@@ -20,7 +20,7 @@
 Here is a quick demo of the App   
 
 ### Ui decorated
-<img src="https://github.com/Ashiquekk696/draggable_multi_listview/blob/master/assets/screenshots/decorated.mp4" alt="Demo GIF" width="500" height="300"> 
+<img src="https://github.com/Ashiquekk696/draggable_multi_listview/blob/master/assets/screenshots/decorated_real.gif" alt="Demo GIF" width="500" height="300"> 
 
 
 ### Ui Not decorated

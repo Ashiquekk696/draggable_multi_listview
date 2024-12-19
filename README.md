@@ -19,11 +19,11 @@
 
 Here is a quick demo of the App   
 
-### Ui decorated
-<img src="assets/screenshots/decorated_real.gif" alt="Demo GIF" width="500" height="300"> 
+### Decorated UI
+<img src="https://raw.githubusercontent.com/Ashiquekk696/draggable_multi_listview/master/assets/screenshots/decorated_real.gif" alt="Demo GIF" width="500" height="300"> 
    
-<!-- ### Ui Not decorated
-<img src="assets/screenshots/not_decorated_real.gif" alt="Demo GIF" width="500" height="300">  -->
+### Not Decorated UI
+<img src="https://raw.githubusercontent.com/Ashiquekk696/draggable_multi_listview/master/assets/screenshots/not_decorated_real.gif" alt="Demo GIF" width="500" height="300"> 
 ## Installation
 
 Add the following to your `pubspec.yaml`:
@@ -32,14 +32,13 @@ Add the following to your `pubspec.yaml`:
 dependencies:
   draggable_multi_listview: 1.0.5
 ```
-Then, run:
-`
-flutter pub get`  
+Then, run: `flutter pub get`  
 
 Import the package into your Dart file:
 
-` 'package:draggable_multi_listview/draggable_multi_listview.dart';
-`
+```dart
+package:draggable_multi_listview/draggable_multi_listview.dart;
+```
 
 
 ## Usage
@@ -47,7 +46,8 @@ Import the package into your Dart file:
 
 Here’s an example of how to use the draggable_multi_listview widget in your app:
 
-```import 'package:draggable_multi_listview/draggable_multi_listview.dart';
+```dart
+import 'package:draggable_multi_listview/draggable_multi_listview.dart';
 import 'package:flutter/material.dart';
 
 void main() {

@@ -24,13 +24,16 @@ Here is a quick demo of the App
    
 ### Not Decorated UI
 <img src="https://raw.githubusercontent.com/Ashiquekk696/draggable_multi_listview/master/assets/screenshots/not_decorated_real.gif" alt="Demo GIF" width="500" height="300"> 
+
+
+
 ## Installation
 
 Add the following to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  draggable_multi_listview: 1.0.5
+  draggable_multi_listview: 1.0.7
 ```
 Then, run: `flutter pub get`  
 
